@@ -16,7 +16,7 @@ Solution: An AI-Based Dashboard that helps users organize, prioritize, and analy
 
 ---
 
-## Demo Video
+
 ## Demo Videos
 
 - [Click here to watch the demo: Admin Login](https://drive.google.com/file/d/1qVV8ZKL6TPu81sPDXsw6jBPD9UMZMS0k/view?usp=sharing)  
