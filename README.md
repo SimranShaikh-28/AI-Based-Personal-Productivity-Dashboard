@@ -25,13 +25,6 @@ Solution: An AI-Based Dashboard that helps users organize, prioritize, and analy
 - [Click here to watch the demo: Leave Update Dinamically](https://drive.google.com/file/d/1kmVqZNCezSBiXqFiPAxdSwr0Geri64S3/view?usp=sharing)
 
 
-
-
-
-## Screenshots
-![Dashboard Screenshot](screenshot/dashboard.png)
-
-
 ## Features
 - User Dashboard (`dashboard_exec.py`) – Add, view, and manage tasks  
 - Admin Dashboard (`admin_dashboard.py`) – AI-based productivity insights  
