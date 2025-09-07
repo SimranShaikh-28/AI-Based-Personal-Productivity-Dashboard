@@ -40,12 +40,12 @@ print(f'''
  <head>
         
         <meta charset="utf-8" />
-        <title>Basic Elements | Minible - Admin & Dashboard Template</title>
+        <title>AI-Based Personal Productivity Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="assets/images/image.png">
 
         <!-- Bootstrap Css -->
         <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
