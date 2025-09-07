@@ -16,6 +16,19 @@ Solution: An AI-Based Dashboard that helps users organize, prioritize, and analy
 
 ---
 
+## Demo Video
+[Click here to watch the demo: Admin Login]([demo_video/demo.mp4](https://drive.google.com/file/d/1qVV8ZKL6TPu81sPDXsw6jBPD9UMZMS0k/view?usp=sharing))
+[Click here to watch the demo: User Login]([https://drive.google.com/file/d/12fApU-USsC_TkFiNaK-TSrMVpI39iOnU/view?usp=sharing))
+[Click here to watch the demo: Task assign]([https://drive.google.com/file/d/16-mlLFzxP0Z1rhcApDP9DJpLBCJGoaOx/view?usp=sharing))
+[Click here to watch the demo: Task assign]([https://drive.google.com/file/d/1kmVqZNCezSBiXqFiPAxdSwr0Geri64S3/view?usp=sharing))
+
+
+
+
+## Screenshots
+![Dashboard Screenshot](screenshot/dashboard.png)
+
+
 ## Features
 - User Dashboard (`dashboard_exec.py`) – Add, view, and manage tasks  
 - Admin Dashboard (`admin_dashboard.py`) – AI-based productivity insights  
