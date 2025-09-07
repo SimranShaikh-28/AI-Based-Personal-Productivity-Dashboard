@@ -1,102 +1,74 @@
 #!C:\Python310\python.exe
-import cgi, cgitb, mysql.connector, os, http.cookies
+import cgitb
 cgitb.enable()
-import header_exec
 
 print("Content-Type: text/html\n")
+print('''
+<!doctype html>
+<html lang="en">
+ <head>
+    <meta charset="utf-8" />
+    <title>Worker Login </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/images/image.png">
+    <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
-form = cgi.FieldStorage()
-empid = form.getvalue("empid")
+    <style>
+      body.authentication-bg {
+          background: url("assets/images/admin-bg.png") no-repeat center center fixed;
+          
+      }
+      .card {
+          background: rgba(255, 255, 255, 0.92); /* semi-transparent so text is readable */
+          border-radius: 15px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      }
+    </style>
+ </head>
 
-# fallback: cookie
-if not empid:
-    cookies = http.cookies.SimpleCookie(os.environ.get("HTTP_COOKIE", ""))
-    empid = cookies["empid"].value if "empid" in cookies else None
-
-if not empid:
-    print("<script>alert('Session expired. Please log in again.');location.href='worker_login.py';</script>")
-    raise SystemExit
-
-try:
-    empid = int(empid)
-except ValueError:
-    print("<script>alert('Invalid ID');location.href='worker_login.py';</script>")
-    raise SystemExit
-
-db = mysql.connector.connect(host="localhost", user="root", password="", database="drw")
-cur = db.cursor(dictionary=True)
-
-# Validate worker
-cur.execute("SELECT * FROM employee_master WHERE id=%s AND role='Executive' AND status='Active'", (empid,))
-worker = cur.fetchone()
-if not worker:
-    print("<script>alert('Worker not found');location.href='worker_login.py';</script>")
-    raise SystemExit
-
-print(f"""
-<div class="main-content">
- <div class="page-content">
-  <div class="container-fluid">
-    <h3>Welcome {worker['name']} (ID: {worker['id']})</h3>
-    
-    <hr>
-    <h4>My Leave Applications</h4>
-    <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Leave Type</th>
-          <th>From Date</th>
-          <th>To Date</th>
-          <th>Reason</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-""")
-
-# Fetch only this worker’s leave applications
-cur.execute("""
-    SELECT l.id, l.from_date, l.to_date, l.reason, l.status, lt.leave_type
-    FROM leave_master l
-    JOIN leave_type_master lt ON l.leave_type_id = lt.id
-    WHERE l.emp_id = %s
-    ORDER BY l.id DESC
-""", (empid,))
-rows = cur.fetchall()
-
-if rows:
-    for r in rows:
-        print(f"""
-          <tr>
-            <td>{r['id']}</td>
-            <td>{r['leave_type']}</td>
-            <td>{r['from_date']}</td>
-            <td>{r['to_date']}</td>
-            <td>{r['reason']}</td>
-            <td>{r['status']}</td>
-            <td>
-              <a href="worker_leave_edit.py?id={r['id']}" class="btn btn-sm btn-warning">Edit</a>
-              <a href="worker_leave_delete.py?id={r['id']}" class="btn btn-sm btn-danger" onclick="return confirm('Delete this leave application?');">Delete</a>
-            </td>
-          </tr>
-        """)
-else:
-    print("""
-          <tr>
-            <td colspan="7" class="text-center text-muted">No leave applications found.</td>
-          </tr>
-    """)
-
-print("""
-      </tbody>
-    </table>
+ <body class="authentication-bg">
+    <div class="account-pages my-5 pt-sm-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card">
+                        <div class="text-center"><div></div></div>
+                        <div class="card-body p-4">
+                            <div class="text-center mt-2">
+                                <h5 class="text-primary">User Login</h5>
+                                <p class="text-muted">Sign in to continue.</p>
+                            </div>
+                            <div class="p-2 mt-4">
+                                <form action="worker_process.py" method="post">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="username">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="userpassword">Password</label>
+                                        <input type="password" class="form-control" id="userpassword" name="userpassword" placeholder="Enter password" required>
+                                    </div>
+                                    <div class="mt-3 text-end">
+                                        <button class="btn btn-success w-sm waves-effect waves-light" type="submit">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
- </div>
-</div>
-""")
 
-import footer
+    <script src="assets/libs/jquery/jquery.min.js"></script>
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/libs/node-waves/waves.min.js"></script>
+    <script src="assets/libs/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="assets/libs/jquery.counterup/jquery.counterup.min.js"></script>
+ </body>
+</html>
+''')
